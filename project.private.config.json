@@ -11,8 +11,8 @@
                     "name": "自定义编译",
                     "pathName": "pages/post/post-detail/post-detail",
                     "query": "id=2",
-                    "scene": null,
-                    "launchMode": "default"
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
