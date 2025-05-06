@@ -1,0 +1,8 @@
+<!--pages/welcome/welcome.wxml-->
+<view class="welcome-container">
+    <image class="avatar" src="/images/avatar/avatar-1.png" mode="aspectFit" />
+    <text class="motto">hello,kitty</text>
+    <view catch:tap="onTapJump" class="journey-container">
+        <text class="journey">开启小程序之旅</text>
+    </view>
+</view>
