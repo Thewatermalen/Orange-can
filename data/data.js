@@ -58,7 +58,8 @@ var postList = [{
                 // img: ["/images/comment/train-1.jpg","/images/comment/train-2.jpg","/images/comment/train-3.jpg"],
                 audio: null
             }
-        }, {
+        }, 
+        {
             username: '水清',
             avatar: '/images/avatar/avatar-2.png',
             create_time: '1481018319',

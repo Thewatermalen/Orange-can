@@ -40,10 +40,28 @@
             </view>
             <view hidden="{{!useKeyboardFlag}}" class="input-item">
                 <image class="comment-icon speak-icon" src="/images/icon/wx_app_speak.png" catch:tap="switchInputType" mode=""/>
-                <input class="input keyboard-input" value="{{keyboardInputValue}}" bindinput="bindCommentInput" placeholder="说点什么吧……" type="text"/>
+                <input class="input keyboard-input" value="{{keyboardInputValue}}" bindconfirm="submitComment" bindinput="bindCommentInput" placeholder="说点什么吧……" type="text"/>
             </view>
             <image class="comment-icon add-icon" src="/images/icon/wx_app_add.png" catch:tap="sendMoreMsg" mode=""/>
             <view class="submit-btn" catch:tap="submitComment">发送</view>
         </view>
+    </view>
+
+    <view class="send-more-box" hidden="{{!sendMoreMsgFlag}}">
+      <!-- 选择图片和拍照的按钮  -->
+      <view class="send-more-btns-main">
+        <view class="more-btn-item" catch:tap="chooseImage" data-category="album">
+          <view class="more-btn-main">
+            <image src="/images/icon/wx_app_upload_image.png" mode=""/>
+          </view>
+          <text>照片</text>
+        </view>
+        <view class="more-btn-item" catch:tap="chooseImage" data-category="camera">
+          <view class="more-btn-main">
+            <image src="/images/icon/wx_app_camera.png" mode=""/>
+          </view>
+          <text>拍照</text>
+        </view>
+      </view>
     </view>
 </view>

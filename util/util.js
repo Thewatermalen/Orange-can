@@ -28,7 +28,7 @@ function getDiffTime(recordTime,yearsFlag){
             }
             return recordTime.format(formate);
         }
-        else if (dayC == 1 ||(hourC < 24 && recordTime.getData()!=now.getDate())){
+        else if (dayC == 1 ||(hourC < 24 && recordTime.getDate()!=now.getDate())){
             result = '昨天' + recordTime.format('hh:mm');
             return result;
         }

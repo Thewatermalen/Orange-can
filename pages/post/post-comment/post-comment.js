@@ -48,6 +48,57 @@ Page({
         this.data.keyboardInputValue = val;
     },
 
+    //提交用户评论
+    submitComment:function(event){
+      var newData = {
+        username:"青石",
+        avatar:"/images/avatar/avatar-3.png",
+        //评论时间
+        create_time:new Date().getTime()/1000,
+        //评论内容
+        content:{
+          txt:this.data.keyboardInputValue
+        },
+      };
+      if(!newData.content.txt){
+        //如果没有评论内容，就不执行任何操作
+        return;
+      }
+      //保存新评论到缓存数据库中
+      this.dbPost.newComment(newData);
+      //显示操作结果
+      this.showCommitSuccessToast();
+      //重新渲染并绑定所有评论
+      this.bindCommentData();
+      //恢复初始状态
+      this.resetAllDefaultStatus();
+    },
+
+    showCommitSuccessToast:function(){
+      //显示操作结果
+      wx.showToast({
+        title:"评论成功",
+        duration:1000,
+        icon:"success"
+      })
+    },
+
+    bindCommentData:function(){
+      var comments = this.dbPost.getCommentData();
+      //绑定评论数据
+      this.setData({
+        comments:comments
+      });
+    },
+
+    //将所有相关的按钮状态，输入状态都恢复到初始状态
+    resetAllDefaultStatus:function(){
+      //清空评论框
+      this.setData({
+        keyboardInputValue:''
+      })
+    },
+
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

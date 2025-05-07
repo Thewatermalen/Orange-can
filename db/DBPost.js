@@ -68,7 +68,7 @@ class DBPost {
         }
     }
 
-    updatePostData(category){
+    updatePostData(category, newComment){
         var itemData = this.getPostItemById(),
         postData = itemData.data,
         allPostData = this.getAllPostData();
@@ -94,6 +94,11 @@ class DBPost {
                     postData.upStatus = false;
                 }
                 break;
+
+            case'comment':
+                postData.comments.push(newComment);
+                postData.commentNum++;
+                break;
             default:
                 break;
         }
@@ -102,6 +107,11 @@ class DBPost {
         this.execSetStorageSync(allPostData);
         return postData;
     }
+
+    newComment(newComment){
+      this.updatePostData('comment',newComment);
+    }
+
 
 };
 
