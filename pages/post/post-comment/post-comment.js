@@ -1,7 +1,8 @@
 // pages/post/post-comment/post-comment.js
 import { DBPost, DBpost } from '../../../db/DBPost.js';
 Page({
-
+  //内部音频对象
+  innerAudioContext:null,
   /**
    * 页面的初始数据
    */
@@ -16,7 +17,8 @@ Page({
     chooseFiles: [],
     //被删除的图片序号
     deleteIndex:-1,
-
+    //保存当前正在播放的语音url
+    currentAudio:'',
   },
 
   /**
@@ -26,6 +28,7 @@ Page({
     var postId = options.id;
     this.dbPost = new DBPost(postId);
     var comments = this.dbPost.getCommentData();
+    this.recordManager = wx.getRecorderManager();
     //绑定评论数据
     this.setData({
       comments: comments
@@ -67,6 +70,7 @@ Page({
 
   //提交用户评论
   submitComment: function (event) {
+    var imgs = this.data.chooseFiles;
     var newData = {
       username: "青石",
       avatar: "/images/avatar/avatar-3.png",
@@ -74,10 +78,11 @@ Page({
       create_time: new Date().getTime() / 1000,
       //评论内容
       content: {
-        txt: this.data.keyboardInputValue
+        txt: this.data.keyboardInputValue,
+        img:imgs,
       },
     };
-    if (!newData.content.txt) {
+    if (!newData.content.txt&imgs.length===0) {
       //如果没有评论内容，就不执行任何操作
       return;
     }
@@ -112,7 +117,9 @@ Page({
   resetAllDefaultStatus: function () {
     //清空评论框
     this.setData({
-      keyboardInputValue: ''
+      keyboardInputValue: '',
+      chooseFiles:[],
+      sendMoreMsgFlag:false,
     })
   },
 
@@ -157,32 +164,94 @@ Page({
     },500)
   },
 
+  recordStart:function(){
+    this.setData({
+      recodingClass:'recoding'
+    });
+    this.recordManager.start({
+    });
+  },
+
+  recordEnd:function () {
+    this.setData({
+      recodingClass:'',
+    });
+    this.recordManager.stop();
+    this.recordManager.onStop((res) => {
+      const recordTime = Math.ceil(res.duration/1000);
+      this.submitVoiceComment({url:res.tempFilePath,timeLen:recordTime})
+    })
+  },
+
+  //提交录音
+  submitVoiceComment:function (audio) {
+    var newData = {
+      username:"小竹泉",
+      avatar:"/images/avatar/avatar-4.png",
+      create_time:new Date().getTime()/1000,
+      content:{
+        txt:'',
+        img:[],
+        audio:audio
+      },
+    };
+    //保存新评论到缓存数据库中
+    this.dbPost.newComment(newData);
+    //显示操作结果
+    this.showCommitSuccessToast();
+    //重新渲染并绑定所有评论
+    this.bindCommentData();   
+  },
+
+  //播放录音
+  playAudio:function (event) {
+    var url = event.currentTarget.dataset.url;
+      //暂停当前录音
+      if(url == this.data.currentAudio){
+        this.innerAudioContext.pause();
+        this.data.currentAudio = ''
+      }
+      //播放录音
+      else{
+        this.data.currentAudio = url;
+        this.innerAudioContext.src = url;
+        this.innerAudioContext.play();
+        this.innerAudioContext.onStop(() =>{
+          this.data.currentAudio = '';
+        })
+      }
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {
-
+  onShow:function(){
+    this.innerAudioContext = wx.createInnerAudioContext();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide() {
-
+  onHide:function() {
+    if(innerAudioContext){  
+      this.innerAudioContext.stop();
+      this.innerAudioContext.destroy();
+      this.innerAudioContext = null;
+    }
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload() {
-
+  onUnload:function() {
+    this.onHide();
   },
 
   /**
