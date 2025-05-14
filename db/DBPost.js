@@ -95,9 +95,12 @@ class DBPost {
                 }
                 break;
 
-            case'comment':
+            case 'comment':
                 postData.comments.push(newComment);
                 postData.commentNum++;
+                break;
+            case 'reading':
+                postData.readingNum++;
                 break;
             default:
                 break;
@@ -112,6 +115,10 @@ class DBPost {
       this.updatePostData('comment',newComment);
     }
 
+    //阅读数+1
+    addReadingTimes(){
+      this.updatePostData('reading');
+    }
 
 };
 

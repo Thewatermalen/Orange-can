@@ -63,6 +63,12 @@ Page({
         this.setData({
             post: this.postData
         })
+        this.addReadingTimes();
+    },
+
+    //阅读数+1
+    addReadingTimes:function (){
+      this.dbPost.addReadingTimes();
     },
 
     /**
