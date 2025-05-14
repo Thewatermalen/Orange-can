@@ -8,7 +8,9 @@ Page({
     /**
      * 页面的初始数据
      */
-    data: {},
+    data: {
+      isPlayingMusic:false,
+    },
 
     onCollectionTap: function (event) {
         //dbpost对象已经在onload函数里被保存到了this变量中，无须再次实例化
@@ -57,6 +59,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        //获取背景音频播放器
+        this.backgroundAudioManager = wx.getBackgroundAudioManager();
         var postId = options.id;
         this.dbPost = new DBPost(postId);
         this.postData = this.dbPost.getPostItemById().data;
@@ -69,6 +73,23 @@ Page({
     //阅读数+1
     addReadingTimes:function (){
       this.dbPost.addReadingTimes();
+    },
+
+    onMusicTap:function (event){
+      if(this.data.isPlayingMusic){
+        this.backgroundAudioManager.pause();
+        this.setData({
+          isPlayingMusic:false
+        })
+      }else{
+        this.backgroundAudioManager.src = this.postData.music.url;
+        this.backgroundAudioManager.title = this.postData.music.title;
+        this.backgroundAudioManager.coverImgUrl = this.postData.music.coverImg;
+        this.backgroundAudioManager.play();
+        this.setData({
+          isPlayingMusic:true
+        })
+      }
     },
 
     /**

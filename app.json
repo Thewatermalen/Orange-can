@@ -5,6 +5,7 @@
       "pages/post/post-detail/post-detail",
       "pages/post/post-comment/post-comment"
   ],
+  "requiredBackgroundModes": ["audio", "location"],
   "window": {
     "navigationBarBackgroundColor":"#4A6141"
   }
