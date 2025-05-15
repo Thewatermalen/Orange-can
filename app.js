@@ -2,7 +2,6 @@
 App({
 
     onLaunch:function(){
-
         var storageData = wx.getStorageSync('postList');
             if (!storageData) {
                 //如果缓存不存在
@@ -20,5 +19,10 @@ App({
             //     //complete
             // }
     },
+
+    globalData:{
+      g_isPlayingMusic:false,
+      g_currentMusicPostId:null
+    }
 
 })
