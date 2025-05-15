@@ -3,7 +3,6 @@ import {
 } from '../../../db/DBPost.js';
 
 var app = getApp();
-console.log(app);
 
 // pages/post/post-detail/post-detail.js
 Page({
@@ -61,7 +60,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad:function(options) {
         //获取背景音频播放器
         this.backgroundAudioManager = wx.getBackgroundAudioManager();
         var postId = options.id;
@@ -174,7 +173,11 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage() {
-
-    }
+    onShareAppMessage:function() {
+      return{
+        title:this.postData.title,
+        desc:this.postData.content,
+        path:"/pages/post/post-detail/post-detail"
+      }
+    },
 })
