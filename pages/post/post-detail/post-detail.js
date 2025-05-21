@@ -48,6 +48,17 @@ Page({
             icon: "success",
             mask: true
         })
+
+        this.animationUp.scale(2).step();
+        this.setData({
+          animationUp:this.animationUp.export()
+        })
+        setTimeout(function () {
+          this.animationUp.scale(1).step();
+          this.setData({
+            animationUp:this.animationUp.export()
+          })
+        }.bind(this),300)
     },
 
     onCommentTap:function(event){
@@ -85,6 +96,8 @@ Page({
           })
           app.globalData.g_isPlayingMusic = false;
         })
+        //调用动画方法
+        this.setAniation();
     },
 
     //阅读数+1
@@ -125,6 +138,14 @@ Page({
           isPlayingMusic:false
         })
       }
+    },
+
+    setAniation:function () {
+      //定义动画
+      var animationUp = wx.createAnimation({
+        timingFunction:'ease-in-out'
+      })
+      this.animationUp = animationUp
     },
 
     /**
