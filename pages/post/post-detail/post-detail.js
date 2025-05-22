@@ -17,7 +17,7 @@ Page({
     onCollectionTap: function (event) {
         //dbpost对象已经在onload函数里被保存到了this变量中，无须再次实例化
         var newData = this.dbPost.collect();
-
+          
         //有选择的更新部分数据
         this.setData({
             'post.collectionStatus': newData.collectionStatus,
@@ -29,6 +29,13 @@ Page({
             duration: 1000,
             icon: "success",
             mask: true
+        })
+
+        // 动态计算旋转角度（收藏:180°，取消:0°）
+        const targetAngle = newData.collectionStatus ? 180 : 0;
+        this.animation.rotateY(targetAngle).step({duration:400,transformOrigin:'50% 100%'});
+        this.setData({
+          animationColl:this.animation.export()
         })
     },
 
@@ -49,14 +56,14 @@ Page({
             mask: true
         })
 
-        this.animationUp.scale(2).step();
+        this.animation.scale(2).rotateY(0).step();
         this.setData({
-          animationUp:this.animationUp.export()
+          animationUp:this.animation.export()
         })
         setTimeout(function () {
-          this.animationUp.scale(1).step();
+          this.animation.scale(1).rotateY(0).step();
           this.setData({
-            animationUp:this.animationUp.export()
+            animationUp:this.animation.export()
           })
         }.bind(this),300)
     },
@@ -142,10 +149,10 @@ Page({
 
     setAniation:function () {
       //定义动画
-      var animationUp = wx.createAnimation({
+      var animation = wx.createAnimation({
         timingFunction:'ease-in-out'
       })
-      this.animationUp = animationUp
+      this.animation = animation
     },
 
     /**

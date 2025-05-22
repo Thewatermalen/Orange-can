@@ -23,8 +23,8 @@
         <text>{{post.commentNum}}</text>
     </view>
     <view class="tool-item" catch:tap="onCollectionTap" data-post-id="{{post.postId}}">
-        <image wx:if="{{post.collectionStatus}}" src="/images/icon/wx_app_collected.png" mode="" />
-        <image wx:else src="/images/icon/wx_app_collect.png" alt=""/>
+        <image animation="{{animationColl}}" wx:if="{{post.collectionStatus}}" src="/images/icon/wx_app_collected.png" mode="" />
+        <image animation="{{animationColl}}" wx:else src="/images/icon/wx_app_collect.png" alt=""/>
         <text>{{post.collectionNum}}</text>
     </view>
 </view>
