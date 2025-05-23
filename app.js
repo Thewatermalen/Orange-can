@@ -22,7 +22,10 @@ App({
 
     globalData:{
       g_isPlayingMusic:false,
-      g_currentMusicPostId:null
+      g_currentMusicPostId:null,
+      image_base:'https://image.tmdb.org/t/p/w500',
+      API_KEY:'5d054017b411dba183800c320b995c5c',
+      tmdbBase:'https://api.themoviedb.org'
     }
 
 })

@@ -1,0 +1,8 @@
+<import src="../stars/stars-tpl.wxml"/>
+<template name="movieTpl">
+  <view class="movie-container" catch:tap="onMovieTap" data-movie-id="{{movieId}}">
+    <image class="movie-img" src="{{coverageUrl}}" mode=""/>
+    <text class="movie-title">{{title}}</text>
+    <template is="starsTpl" data="{{stars:stars,score:average}}"/>
+  </view>
+</template>
