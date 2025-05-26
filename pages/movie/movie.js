@@ -1,3 +1,5 @@
+const util = require("../../util/util");
+var app = getApp();
 // pages/movie/movie.js
 Page({
 
@@ -13,10 +15,10 @@ Page({
     getMovieListData:function(url,settedKey,categoryTitle){
       var that = this;
       wx.request({
-        url: 'url',
+        url: url,
         method: 'GET',
         header: {
-          accept:'application/json',
+          Accept:'application/json',
           Authorization:'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDA1NDAxN2I0MTFkYmExODM4MDBjMzIwYjk5NWM1YyIsIm5iZiI6MTc0Nzk4MTU1Mi40OTIsInN1YiI6IjY4MzAxNGYwMDc5YTQyZTI4NzAzNjNkOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tnPkjDm0iqnGLctkQ6bOhW1IZZc9qQb6gnPvDN_gxr8',
         },
         success:function(res){
@@ -27,6 +29,34 @@ Page({
           console.log(error)
         }
       })
+    },
+
+    processTmdbData:function(movieTmdb,settedKey,categoryTitle){
+      var movies = [];
+      //for中的代码将所有tmdb电影数据转化成我们需要的格式
+      for(var i=0; i<3;i++){
+        var result = movieTmdb.results[i];
+        var title = result.original_title;
+        if(title.length >= 6){
+          //电影标题只取前6个字符
+          title = title.substring(0,12) + "...";
+        } 
+        var temp = {
+          stars:util.convertToStarsArray(result.vote_average),
+          title:title,
+          average:result.vote_average,
+          coverageUrl:app.globalData.image_base + result.poster_path,
+          movieId:result.id
+        }
+        movies.push(temp)
+      }
+      var readyData = {};
+      readyData[settedKey] = {
+        categoryTitle:categoryTitle,
+        movies:movies
+      }
+      this.setData(readyData);
+      console.log(readyData);
     },
 
     /**

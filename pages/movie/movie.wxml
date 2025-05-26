@@ -1,5 +1,5 @@
 <!--pages/movie/movie.wxml-->
-<import src="movie-list/movie-list.wxml"/>
+<import src="movie-list/movie-list-tpl.wxml"/>
 
 <view class="container">
   <view class="movies-template">

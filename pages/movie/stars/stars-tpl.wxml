@@ -1,10 +1,10 @@
 <template name="starsTpl">
   <view class="stars-container">
     <view class="stars">
-      <block wx:for="{{star}}" wx:for-iten="i" wx:key="*this">
+      <block wx:for="{{stars}}" wx:for-item="i" wx:key="idx">
         <image wx:if="{{i===1}}" src="/images/icon/wx_app_star.png" mode=""/>
-        <image wx:elif="{{i===0.5}}" src="/images/icon/wx_app_star@none.png" mode=""/>
-        <image wx:else="{{i===0}}" src="/images/icon/wx_app_star@half.png" mode=""/>
+        <image wx:elif="{{i===0.5}}" src="/images/icon/wx_app_star@half.png" mode=""/>
+        <image wx:else="{{i===0}}" src="/images/icon/wx_app_star@none.png" mode=""/>
       </block>
     </view>
     <text class="star-score">{{score}}</text>

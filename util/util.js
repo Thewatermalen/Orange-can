@@ -86,6 +86,26 @@ function getDiffTime(recordTime,yearsFlag){
     };
 })()
 
+//将10以内数字转化成[1,1,1,1,1]的形式
+function convertToStarsArray(stars) {
+  var num = Math.floor(stars);
+  var array = [];
+  for(var i=1;i<=5;i++){
+    if(num - 2 >= 0){
+      array.push(1);
+    }else if(num - 1 >= 0){
+      array.push(0.5);
+    }else{
+      array.push(0)
+    }
+    num -= 2;
+  }
+  return array;
+}
+
+
+
 module.exports = {
-    getDiffTime:getDiffTime
+    getDiffTime:getDiffTime,
+    convertToStarsArray:convertToStarsArray
 }
