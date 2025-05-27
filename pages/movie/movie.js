@@ -37,8 +37,8 @@ Page({
       for(var i=0; i<3;i++){
         var result = movieTmdb.results[i];
         var title = result.original_title;
-        if(title.length >= 6){
-          //电影标题只取前6个字符
+        if(title.length >= 12){
+          //电影标题只取前12个字符
           title = title.substring(0,12) + "...";
         } 
         var temp = {
@@ -70,6 +70,13 @@ Page({
       this.getMovieListData(inTheatersUrl,"inTheaters","正在热映");
       this.getMovieListData(comingSoonUrl,"comingSoon","即将上映");
       this.getMovieListData(top250Url,"top250","TMDB高分");
+    },
+
+    onMoreTap:function(event){
+      var category = event.currentTarget.dataset.category;
+      wx.navigateTo({
+        url: 'more-movie/more-movie?category=' + category,
+      })
     },
 
     /**

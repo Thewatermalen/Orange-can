@@ -1,0 +1,2 @@
+<import src="../../../pages/movie/more-movie/movie-grid/movie-grid-tpl.wxml"/>
+<template is="movieGridTpl" data="{{movies}}"/>

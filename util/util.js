@@ -103,9 +103,26 @@ function convertToStarsArray(stars) {
   return array;
 }
 
+function http(url,callBack){
+  wx.request({
+    url: url,
+    method: 'GET',
+    header:{
+      Accept:'application/json',
+          Authorization:'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZDA1NDAxN2I0MTFkYmExODM4MDBjMzIwYjk5NWM1YyIsIm5iZiI6MTc0Nzk4MTU1Mi40OTIsInN1YiI6IjY4MzAxNGYwMDc5YTQyZTI4NzAzNjNkOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tnPkjDm0iqnGLctkQ6bOhW1IZZc9qQb6gnPvDN_gxr8',
+    },
+    success:function(res){
+      callBack(res.data);
+    },
+    fail:function(error){
+      console.log(error);
+    }
+  })
+}
 
 
 module.exports = {
     getDiffTime:getDiffTime,
-    convertToStarsArray:convertToStarsArray
+    convertToStarsArray:convertToStarsArray,
+    http:http
 }

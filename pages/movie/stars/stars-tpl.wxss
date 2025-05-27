@@ -11,7 +11,7 @@
   margin-top: 6rpx;
 }
 
-.stars image{
+.star-img{
   padding-left: 3rpx;
   height: 17rpx;
   width: 17rpx;
