@@ -116,6 +116,10 @@ function http(url,callBack){
     },
     fail:function(error){
       console.log(error);
+    },
+    complete:function(){
+      //隐藏loading状态
+    wx.hideNavigationBarLoading();
     }
   })
 }

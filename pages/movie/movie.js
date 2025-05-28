@@ -9,7 +9,10 @@ Page({
     data: {
       inTheaters:{},
       comingSoon:{},
-      top250:{}
+      top250:{},
+      containerShow:true,
+      searchPanelShow:false,
+      searchResult:{}
     },
 
     getMovieListData:function(url,settedKey,categoryTitle){
@@ -34,7 +37,7 @@ Page({
     processTmdbData:function(movieTmdb,settedKey,categoryTitle){
       var movies = [];
       //for中的代码将所有tmdb电影数据转化成我们需要的格式
-      for(var i=0; i<3;i++){
+      for(var i=0; settedKey=="searchResult" ? i<movieTmdb.results.length : i<3;i++){
         var result = movieTmdb.results[i];
         var title = result.original_title;
         if(title.length >= 12){
@@ -59,6 +62,29 @@ Page({
       console.log(readyData);
     },
 
+    onBindFocus:function(){
+      this.setData({
+        containerShow:false,
+        searchPanelShow:true
+      })
+    },
+
+    onCancelImgTap:function(event) {
+      this.setData({
+        containerShow:true,
+        searchPanelShow:false,
+        searchResult:{},
+        inputValue:'',
+      })
+    },
+
+    onMovieTap:function(event){
+      var movieId = event.currentTarget.dataset.movieId;
+      wx.navigateTo({
+        url: `movie-detail/movie-detail?id=${movieId}`
+      })
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
@@ -77,6 +103,12 @@ Page({
       wx.navigateTo({
         url: 'more-movie/more-movie?category=' + category,
       })
+    },
+
+    onBindConfirm:function(event){
+      var keyWord = event.detail.value;
+      var searchUrl = app.globalData.tmdbBase + "/3/search/movie?language=zh-CN" + `&query=${keyWord}`;
+      this.getMovieListData(searchUrl,"searchResult","");
     },
 
     /**
