@@ -15,6 +15,7 @@ Page({
    */
   onLoad: function (options) {
     var category = options.category;
+    this.data.navigateTitle = category;
     var dataUrl = "";
     switch (category) {
       case "正在热映":
@@ -79,7 +80,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady:function() {
-    
+    wx.setNavigationBarTitle({
+      title: this.data.navigateTitle,
+    })
   },
 
   /**
