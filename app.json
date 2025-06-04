@@ -6,7 +6,9 @@
       "pages/post/post-comment/post-comment",
       "pages/movie/movie",
       "pages/movie/more-movie/more-movie",
-      "pages/movie/movie-detail/movie-detail"
+      "pages/movie/movie-detail/movie-detail",
+      "pages/setting/setting",
+      "pages/setting/device/device"
   ],
   "requiredBackgroundModes": ["audio", "location"],
   "window": {
@@ -30,6 +32,12 @@
       "text": "光影",
       "iconPath": "images/icon/wx_app_movie.png",
       "selectedIconPath": "images/icon/wx_app_movie@HL.png"
+    },
+    {
+      "pagePath": "pages/setting/setting",
+      "text": "设置",
+      "iconPath": "images/icon/wx_app_setting.png",
+      "selectedIconPath": "images/icon/wx_app_setting@HL.png"
     }
   ]
   },
@@ -39,5 +47,6 @@
     "uploadFile": 20000,
     "downloadFile": 20000
   }
+
 
 }
