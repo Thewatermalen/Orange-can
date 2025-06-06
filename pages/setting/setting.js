@@ -120,6 +120,12 @@ Page({
       })
     },
 
+    downloadDocumentList:function(){
+      wx.navigateTo({
+        url: '/pages/setting/document/download/download',
+      });
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
